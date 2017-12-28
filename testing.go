@@ -1,12 +1,12 @@
 package main
 
 import (
-	"log"
 	"fmt"
 	owm "github.com/briandowns/openweathermap"
-
 	"os"
 	"encoding/json"
+	"net/http"
+	"strconv"
 )
 
 type Weather struct{
@@ -27,32 +27,44 @@ type Weather struct{
 	Time int `json:"time"`
 }
 
-func getWeather(cityId int){
-	w, err := owm.NewCurrent("C", "en", os.Getenv("OWM_API_KEY")) // fahrenheit (imperial) with Russian output
-	if err != nil {
-		log.Fatalln(err)
+func getWeather(writer http.ResponseWriter, request *http.Request){
+
+	// TODO add error checking here
+
+	cityId, err := strconv.ParseInt(request.FormValue("id"), 0, 64)
+
+	if err != nil{
+		fmt.Fprintln(writer, "Error")
+		return
 	}
 
-	w.CurrentByID(cityId)
+	w, err := owm.NewCurrent("C", "en", os.Getenv("OWM_API_KEY")) // fahrenheit (imperial) with Russian output
+	if err != nil {
+		fmt.Fprintln(writer, "Error")
+		return
+	}
+	fmt.Println(cityId)
+	w.CurrentByID(int(cityId))
 
-	weather := Weather{cityId, w.GeoPos.Longitude, w.GeoPos.Latitude, w.Main.Temp,
+	weather := Weather{int(cityId), w.GeoPos.Longitude, w.GeoPos.Latitude, w.Main.Temp,
 	w.Main.TempMin, w.Main.TempMax, w.Weather[0].Description, w.Wind.Speed, w.Wind.Deg,
 	w.Main.Humidity, w.Main.Pressure, w.Sys.Sunrise, w.Sys.Sunset, w.Dt}
 
 	weatherMarshalled, _ := json.Marshal(weather)
-	fmt.Printf("%s\n", weatherMarshalled)
-	
+
+	fmt.Fprint(writer, string(weatherMarshalled))
+
+}
+
+func getCities(writer http.ResponseWriter, request *http.Request){
+
 }
 
 func main() {
 	os.Setenv("OWM_API_KEY", "cde3fd92c6a3989c1f6c2b70f2d6a448")
 
+	http.HandleFunc("/", getWeather)
+	http.HandleFunc("/cities/", getCities)
+	http.ListenAndServe(":8000", nil)
 
-	fmt.Println(os.Getenv("OWM_API_KEY"))
-
-	getWeather(2172797)
-
-
-
-	//fmt.Println(w)
 }

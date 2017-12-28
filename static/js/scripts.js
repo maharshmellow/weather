@@ -13,42 +13,6 @@ $.ajax({
     },
 });
 
-function getCities(){
-    var input = $("#addressBarField").val();
-
-    if (input == ""){
-        return;
-    }
-
-    var letter = input[0].toLowerCase()
-
-    if (localStorage.getItem(letter) == null){
-        // load the file from the server for autocomplete and store in localstorage
-        console.log("Loading From Server");
-
-        var formdata = new FormData();
-        formdata.append("letter", letter);
-
-        $.ajax({
-            type: 'POST',
-            url: '/getCities/',
-            data: formdata,
-            contentType: false,
-            processData: false,
-            success: function(data) {
-                var response = JSON.parse(data);
-                console.log(response);
-                localStorage.setItem(letter, JSON.stringify(response));
-
-                return(getCitiesHelper(input, JSON.stringify(response)));
-            },
-        });
-
-    }else{
-        console.log("Loading From Local Storage");
-        return(getCitiesHelper(input, localStorage.getItem(letter)));
-    }
-}
 
 function getCitiesHelper(input, citiesList){
     // go through the citiesList and return all that match
@@ -127,6 +91,23 @@ $('#cityInput').autocomplete({
 
     },
     onSelect: function (suggestion) {
+
+        // // TODO create ajax request to get the weather
+        var formdata = new FormData();
+        formdata.append("id", suggestion.data);
+
+        $.ajax({
+            type: 'POST',
+            url: '/getWeather/',
+            data: formdata,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                var response = JSON.parse(data);
+                console.log(response);
+            },
+        });
+
         console.log('You selected: ' + suggestion.value + ', ' + suggestion.data);
     }
 });

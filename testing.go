@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"strconv"
 	"io/ioutil"
+	"bytes"
 )
 
 type Weather struct{
@@ -27,11 +28,8 @@ type Weather struct{
 	Sunset int `json:"sunset"`
 	Time int `json:"time"`
 }
-
 // gets the weather for a city by id
 func getWeather(writer http.ResponseWriter, request *http.Request){
-
-	// TODO add error checking here
 
 	cityId, err := strconv.ParseInt(request.FormValue("id"), 0, 64)
 
@@ -60,7 +58,17 @@ func getWeather(writer http.ResponseWriter, request *http.Request){
 
 // used to get the initial list of all cities for autocomplete
 func getCities(writer http.ResponseWriter, request *http.Request){
-	dat, err := ioutil.ReadFile("cities.json")
+
+	letter := request.FormValue("letter")
+
+	var buffer bytes.Buffer
+	buffer.WriteString("data/")
+	buffer.WriteString(letter)
+	buffer.WriteString(".json")
+
+	fmt.Println(buffer.String())
+
+	dat, err := ioutil.ReadFile(buffer.String())
 
 	if err != nil{
 		fmt.Fprintln(writer, "Error")
@@ -72,9 +80,12 @@ func getCities(writer http.ResponseWriter, request *http.Request){
 
 func main() {
 	os.Setenv("OWM_API_KEY", "cde3fd92c6a3989c1f6c2b70f2d6a448")
+	//http.HandleFunc("/", index)
+	index := http.FileServer(http.Dir("static"))
+	http.Handle("/", index)
 
-	http.HandleFunc("/", getWeather)
-	http.HandleFunc("/cities/", getCities)
+	http.HandleFunc("/getWeather/", getWeather)
+	http.HandleFunc("/getCities/", getCities)
 	http.ListenAndServe(":8000", nil)
 
 }

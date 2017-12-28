@@ -39,13 +39,15 @@ for row in data:
 
 cities, ids = zip(*sorted(zip(cities, ids))) 
 
-output = []
-for i in range(len(cities)):
-    output.append((cities[i], ids[i]))
+for letter in "abcdefghijklmnopqrstuvwxyz":
+    output = []
+    for i in range(len(cities)):
+        if cities[i][0].lower() == letter:
+            output.append((cities[i], ids[i]))
 
-output = OrderedDict(output)
+    output = OrderedDict(output)
 
-with open("cities.json", "w") as f:
-    json.dump(output, f)
+    with open("data/"+letter+".json", "w") as f:
+        json.dump(output, f)
 
 

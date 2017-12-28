@@ -1,0 +1,54 @@
+#cityBar {
+    font-weight: 100;
+    margin-top: 30px;
+    font-size: 5em;
+    overflow: hidden;
+}
+#cityInput{
+    height: 70px;
+    width: 400px;
+    font-size: 30px;
+    font-family: "Brandon Grotesque";
+}
+
+input:focus {
+    outline: none;
+}
+
+input[type="text"] {
+    border: transparent;
+    background-image: linear-gradient(197deg, #FFECF5 0%, #A5BBFF 100%);
+    box-shadow: inset 0 1px 53px 2px rgba(143, 143, 143, 0.50);
+}
+
+.autocomplete-suggestions {
+    background-image: linear-gradient(197deg, #FFECF5 0%, #A5BBFF 100%);
+    box-shadow: inset 0 1px 53px 2px rgba(143, 143, 143, 0.50);
+    overflow: auto;
+    margin-top: -2px;
+}
+
+.autocomplete-suggestion {
+    padding: 10px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.autocomplete-selected {
+    background-image: linear-gradient(197deg, #FFECF5 20%, #A5BBFF 80%);
+}
+
+.autocomplete-suggestions strong {
+    font-weight: normal;
+    color: #FFECF5;
+}
+
+.autocomplete-group {
+    padding: 2px 5px;
+}
+
+.autocomplete-group strong {
+    display: block;
+    border-bottom: 1px solid #000;
+}

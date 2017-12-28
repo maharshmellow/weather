@@ -5,15 +5,30 @@
     <title>Weather</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.7/jquery.autocomplete.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
     <link rel="stylesheet" type="text/css" href="css/styles.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 <body>
 <div id="weather_info">
-    <div id="weather">sdf</div>
+
+    <!--<input type="text" name="country" id="autocomplete"/>-->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8 col-sm-12 center-block text-center">
+                <h1 id="cityBar">
+                    <input id="cityInput" type="text" placeholder="Enter City"></input>
+                </h1>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+
 
 </div>
 </body>

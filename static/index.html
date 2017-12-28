@@ -7,23 +7,69 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.7/jquery.autocomplete.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-
+    <link href="css/owfont-regular.min.css" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 <body>
-<div id="weather_info">
+<div id="container">
 
-    <!--<input type="text" name="country" id="autocomplete"/>-->
-    <div class="container">
+    <div id="weatherInfo" class="col-sm-5">
+        <div class="row" style="background-color: red">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <h1 id="cityBar">
+                    <div id="title" class="center-block text-center">WEATHER</div>
+                    <input id="cityInput" type="text" placeholder="Enter City"></input>
+                </h1>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <div id="weather" class="text-center">-13</div>
+                </div>
+                <div class="col-sm-6">
+                    <i class="owf owf-800 owf-5x"></i>
+                </div>
+                <div id="description" class="text-center">Some Clouds</div>
+
+                <br>
+
+                <div><span class="title">Min:</span><span id="minTemp">-15</span></div>
+                <div><span class="title">Max:</span><span id="maxTemp">-13</span></div>
+                <br>
+
+                <div><span class="title">Wind Speed:</span><span id="windSpeed">2.3</span></div>
+                <div><span class="title">Wind Direction:</span><span id="windDirection">-153</span></div>
+                <br>
+
+                <div><span class="title">Humidity:</span><span id="humidity">13</span></div>
+                <div><span class="title">Pressure:</span><span id="pressure">1021</span></div>
+                <br>
+
+                <div><span class="title">Sunrise:</span><span id="sunrise">14:34 UTC</span></div>
+                <div><span class="title">Sunset:</span><span id="sunset">19:29</span></div>
+                <br>
+
+                <div><span class="title">Longitude:</span><span id="longitude">-113.47</span></div>
+                <div><span class="title">Latitude:</span><span id="latitude">53.55</span></div>
+            </div>
+            <div class="col-sm-2"></div>
+
+        </div>
+        <!--TODO https://snazzymaps.com/style/37/lunar-landscape-->
+    </div>
+    <div id="map" class="col-sm-7">
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8 col-sm-12 center-block text-center">
-                <h1 id="cityBar">
-                    <input id="cityInput" type="text" placeholder="Enter City"></input>
-                </h1>
+                Map goes here
             </div>
             <div class="col-lg-2"></div>
         </div>

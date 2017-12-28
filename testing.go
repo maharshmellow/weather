@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
+	"io/ioutil"
 )
 
 type Weather struct{
@@ -27,6 +28,7 @@ type Weather struct{
 	Time int `json:"time"`
 }
 
+// gets the weather for a city by id
 func getWeather(writer http.ResponseWriter, request *http.Request){
 
 	// TODO add error checking here
@@ -56,8 +58,16 @@ func getWeather(writer http.ResponseWriter, request *http.Request){
 
 }
 
+// used to get the initial list of all cities for autocomplete
 func getCities(writer http.ResponseWriter, request *http.Request){
+	dat, err := ioutil.ReadFile("cities.json")
 
+	if err != nil{
+		fmt.Fprintln(writer, "Error")
+		return
+	}
+
+	fmt.Fprintf(writer, string(dat))
 }
 
 func main() {

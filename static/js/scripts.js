@@ -38,25 +38,25 @@ function getWeather(input){
                 console.log(response);
                 localStorage.setItem(letter, JSON.stringify(response));
 
-                getWeatherHelper(input, response);
+                getWeatherHelper(input, JSON.stringify(response));
             },
         });
 
     }else{
         console.log("Loading From Local Storage");
-        getWeatherHelper(input, JSON.parse(localStorage.getItem(letter)));
+        getWeatherHelper(input, localStorage.getItem(letter));
     }
 }
 
 function getWeatherHelper(input, citiesList){
     // go through the citiesList and return all that match
     console.log("Searching...")
-    console.log(citiesList);
-    for (var key in citiesList) {
-        if (citiesList.hasOwnProperty(key)) {
-            if (key.toLowerCase().indexOf(input.toLowerCase()) != -1){
-                console.log(key);
-            }
+
+    var result = $.parseJSON(citiesList);
+    $.each(result, function(k, v) {
+        if (k.toLowerCase().indexOf(input.toLowerCase()) != -1){
+            console.log(k, v);
         }
-    }
+    });
+
 }

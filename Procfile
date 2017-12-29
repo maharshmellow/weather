@@ -1,1 +1,1 @@
-web: howcold
+web: weatherapp

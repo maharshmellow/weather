@@ -89,8 +89,6 @@ func determineListenAddress() (string, error) {
 }
 
 func main() {
-	os.Setenv("OWM_API_KEY", "cde3fd92c6a3989c1f6c2b70f2d6a448")
-
 	addr, _ := determineListenAddress()
 
 	index := http.FileServer(http.Dir("static"))

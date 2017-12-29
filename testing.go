@@ -80,14 +80,26 @@ func getCities(writer http.ResponseWriter, request *http.Request){
 	fmt.Fprintf(writer, string(dat))
 }
 
+func determineListenAddress() (string, error) {
+	port := os.Getenv("PORT")
+	if port == "" {
+		return "", fmt.Errorf("$PORT not set")
+	}
+	return ":" + port, nil
+}
+
 func main() {
 	os.Setenv("OWM_API_KEY", "cde3fd92c6a3989c1f6c2b70f2d6a448")
-	//http.HandleFunc("/", index)
+
+	addr, _ := determineListenAddress()
+
 	index := http.FileServer(http.Dir("static"))
 	http.Handle("/", index)
 
 	http.HandleFunc("/getWeather/", getWeather)
 	http.HandleFunc("/getCities/", getCities)
-	http.ListenAndServe(":8000", nil)
+	if err := http.ListenAndServe(addr, nil); err != nil {
+		panic(err)
+	}
 
 }

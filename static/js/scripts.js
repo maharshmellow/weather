@@ -1,3 +1,4 @@
+// pre-fill the page with the Edmonton weather
 var formdata = new FormData();
 formdata.append("id", 5946768);
 
@@ -121,6 +122,10 @@ function updateData(response){
     document.getElementById("longitude").textContent = response["longitude"];
     document.getElementById("latitude").textContent = response["latitude"];
     document.getElementById("weatherIcon").className = "owf owf-5x owf-" + response["code"];
+
+    // update the map
+    moveMap(response["latitude"], response["longitude"]);
+
 }
 
 
@@ -140,3 +145,29 @@ function formatTime(unixTimestamp){
 
     return formattedTime;
 }
+
+
+// map
+var map;
+var marker;
+
+function initMap() {
+    var edmonton = {lat: 53.55, lng: -113.47};
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 7,
+        center: edmonton
+    });
+
+    marker = new google.maps.Marker({
+        position: edmonton,
+        map: map,
+    });
+
+}
+
+function moveMap(lat, lng){
+    var latlng = new google.maps.LatLng(lat, lng);
+    marker.setPosition(latlng);
+    map.setCenter(latlng);
+}
+

@@ -31,9 +31,8 @@
         <div class="row">
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
+                <br>
                 <div id="weather" class="text-center">0°</div>
-                <div id="description" class="text-center">Loading</div>
-
                 <br>
 
                 <div><span class="title">Min:</span><span id="minTemp"></span></div>
@@ -57,7 +56,8 @@
                 <br>
 
                 <div class="row center-block text-center" >
-                    <i id="weatherIcon" class="owf owf-800 owf-5x"></i>
+                    <i id="weatherIcon"></i><br>
+                    <div id="description" class="text-center">Loading</div>
                 </div>
             </div>
             <div class="col-sm-2"></div>
@@ -65,18 +65,13 @@
         </div>
         <!--TODO https://snazzymaps.com/style/37/lunar-landscape-->
     </div>
-    <div id="map" class="col-sm-7">
-        <div class="row">
-            <div class="col-lg-2"></div>
-            <div class="col-lg-8 col-sm-12 center-block text-center">
-                Map goes here
-            </div>
-            <div class="col-lg-2"></div>
-        </div>
-    </div>
+    <div id="map" class="col-sm-7"></div>
 
 
 </div>
 </body>
 <script type="text/javascript" src="js/scripts.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr3o307hojPIrs5ph16urE3l0YpjhZzc0&callback=initMap">
+</script>
 </html>

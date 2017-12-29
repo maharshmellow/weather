@@ -12,7 +12,6 @@ import (
 )
 
 type Weather struct{
-	//city string
 	Id int `json:"id"`
 	Longitude float64 `json:"longitude"`
 	Latitude float64 `json:"latitude"`
@@ -29,6 +28,7 @@ type Weather struct{
 	Time int `json:"time"`
 	Code int `json:"code"`
 }
+
 // gets the weather for a city by id
 func getWeather(writer http.ResponseWriter, request *http.Request){
 
@@ -39,7 +39,7 @@ func getWeather(writer http.ResponseWriter, request *http.Request){
 		return
 	}
 
-	w, err := owm.NewCurrent("C", "en", os.Getenv("OWM_API_KEY")) // fahrenheit (imperial) with Russian output
+	w, err := owm.NewCurrent("C", "en", os.Getenv("OWM_API_KEY"))
 	if err != nil {
 		fmt.Fprintln(writer, "Error")
 		return

@@ -71,6 +71,13 @@ input[type="text"] {
 #weather{
     font-size: 45px;
 }
+#description{
+    text-transform:capitalize;
+}
+#weatherIcon{
+    padding-top: 20px;
+    margin-top: 20px;
+}
 #map{
     background-color: #A5BBFF;
     height: 100vh;

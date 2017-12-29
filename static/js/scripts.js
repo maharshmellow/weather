@@ -10,6 +10,7 @@ $.ajax({
     success: function(data) {
         var response = JSON.parse(data);
         console.log(response);
+        updateData(response);
     },
 });
 
@@ -35,17 +36,11 @@ function getCitiesHelper(input, citiesList){
     });
 
     return suggestions;
-
 }
+
 
 $('#cityInput').autocomplete({
     lookup: function (query, done) {
-        // Do Ajax call or lookup locally, when done,
-        // call the callback and pass your results:
-        // var result = {
-        //     suggestions: getCities()
-        // };
-
         var input = $("#cityInput").val();
 
         if (input == ""){
@@ -91,8 +86,6 @@ $('#cityInput').autocomplete({
 
     },
     onSelect: function (suggestion) {
-
-        // // TODO create ajax request to get the weather
         var formdata = new FormData();
         formdata.append("id", suggestion.data);
 
@@ -105,9 +98,45 @@ $('#cityInput').autocomplete({
             success: function(data) {
                 var response = JSON.parse(data);
                 console.log(response);
+                updateData(response);
             },
         });
 
         console.log('You selected: ' + suggestion.value + ', ' + suggestion.data);
     }
 });
+
+
+function updateData(response){
+    document.getElementById("weather").textContent = response["temp"].toString() + " °C";
+    document.getElementById("description").textContent = capitalizeFirstLetter(response["description"]);
+    document.getElementById("minTemp").textContent = response["minTemp"].toString() + "°C";
+    document.getElementById("maxTemp").textContent = response["maxTemp"].toString() + "°C";
+    document.getElementById("windSpeed").textContent = response["windSpeed"].toString() + " m/s";
+    document.getElementById("windDirection").textContent = response["windDirection"].toString() + "°";
+    document.getElementById("humidity").textContent = response["humidity"].toString() + " %";
+    document.getElementById("pressure").textContent = response["pressure"].toString() + " hPa";
+    document.getElementById("sunrise").textContent = formatTime(response["sunrise"]) + " UTC";
+    document.getElementById("sunset").textContent = formatTime(response["sunset"]) + " UTC";
+    document.getElementById("longitude").textContent = response["longitude"];
+    document.getElementById("latitude").textContent = response["latitude"];
+    document.getElementById("weatherIcon").className = "owf owf-5x owf-" + response["code"];
+}
+
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function formatTime(unixTimestamp){
+    var date = new Date(unixTimestamp*1000);
+    date.setTime(date.getTime() + date.getTimezoneOffset()*60*1000);
+
+    var hours = date.getHours();
+    var minutes = "0" + date.getMinutes();
+    var seconds = "0" + date.getSeconds();
+
+    var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+
+    return formattedTime;
+}

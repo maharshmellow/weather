@@ -27,6 +27,7 @@ type Weather struct{
 	Sunrise int `json:"sunrise"`
 	Sunset int `json:"sunset"`
 	Time int `json:"time"`
+	Code int `json:"code"`
 }
 // gets the weather for a city by id
 func getWeather(writer http.ResponseWriter, request *http.Request){
@@ -43,12 +44,13 @@ func getWeather(writer http.ResponseWriter, request *http.Request){
 		fmt.Fprintln(writer, "Error")
 		return
 	}
-	fmt.Println(cityId)
+
+	// get the weather by the city id taken from client
 	w.CurrentByID(int(cityId))
 
 	weather := Weather{int(cityId), w.GeoPos.Longitude, w.GeoPos.Latitude, w.Main.Temp,
 	w.Main.TempMin, w.Main.TempMax, w.Weather[0].Description, w.Wind.Speed, w.Wind.Deg,
-	w.Main.Humidity, w.Main.Pressure, w.Sys.Sunrise, w.Sys.Sunset, w.Dt}
+	w.Main.Humidity, w.Main.Pressure, w.Sys.Sunrise, w.Sys.Sunset, w.Dt, w.Weather[0].ID}
 
 	weatherMarshalled, _ := json.Marshal(weather)
 

@@ -1,0 +1,15 @@
+{
+	"ImportPath": "weatherapp",
+	"GoVersion": "go1.9",
+	"GodepVersion": "v79",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/briandowns/openweathermap",
+			"Comment": "0.9-7-g722564b",
+			"Rev": "722564b6cf670ef4a8fce54d8913ac9a13e88ec1"
+		}
+	]
+}
